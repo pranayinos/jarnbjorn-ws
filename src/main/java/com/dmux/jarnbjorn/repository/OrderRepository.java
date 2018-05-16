@@ -1,12 +1,13 @@
 package com.dmux.jarnbjorn.repository;
 
-import com.dmux.jarnbjorn.model.Company;
+import com.dmux.jarnbjorn.model.Order;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface CompanyRepository extends JpaRepository<Company, Long> {
+public interface OrderRepository extends JpaRepository<Order, Integer> {
 
-    Company findByName(String name);
+    Order findByStatus(String status);
 
 }

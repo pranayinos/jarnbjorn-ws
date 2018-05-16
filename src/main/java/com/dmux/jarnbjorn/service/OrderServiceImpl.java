@@ -1,7 +1,8 @@
 package com.dmux.jarnbjorn.service;
 
-import com.dmux.jarnbjorn.model.Company;
-import com.dmux.jarnbjorn.repository.CompanyRepository;
+import com.dmux.jarnbjorn.model.Order;
+import com.dmux.jarnbjorn.repository.OrderRepository;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
@@ -10,57 +11,57 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Service
-public class CompanyServiceImpl implements CompanyService {
+public class OrderServiceImpl implements OrderService {
 
     @Autowired
-    private CompanyRepository companyRepository;
+    private OrderRepository companyRepository;
 
     @Override
     @Transactional(readOnly = true)
     @PreAuthorize("hasAuthority('COMPANY_READ') and hasAuthority('DEPARTMENT_READ')")
-    public Company get(Long id) {
+    public Order get(int id) {
         return companyRepository.findOne(id);
     }
 
     @Override
     @Transactional(readOnly = true)
     @PreAuthorize("hasAuthority('COMPANY_READ') and hasAuthority('DEPARTMENT_READ')")
-    public Company get(String name) {
-        return companyRepository.findByName(name);
+    public Order get(String status) {
+        return companyRepository.findByStatus(status);
     }
 
     @Override
     @Transactional(readOnly = true)
     @PreAuthorize("hasAuthority('COMPANY_READ')")
-    public List<Company> getAll() {
+    public List<Order> getAll() {
         return companyRepository.findAll();
     }
 
     @Override
     @Transactional
     @PreAuthorize("hasAuthority('COMPANY_CREATE')")
-    public void create(Company company) {
+    public void create(Order company) {
         companyRepository.save(company);
     }
 
     @Override
     @Transactional
     @PreAuthorize("hasAuthority('COMPANY_UPDATE')")
-    public Company update(Company company) {
+    public Order update(Order company) {
         return companyRepository.save(company);
     }
 
     @Override
     @Transactional
     @PreAuthorize("hasAuthority('COMPANY_DELETE')")
-    public void delete(Long id) {
+    public void delete(int id) {
         companyRepository.delete(id);
     }
 
     @Override
     @Transactional
     @PreAuthorize("hasAuthority('COMPANY_DELETE')")
-    public void delete(Company company) {
+    public void delete(Order company) {
         companyRepository.delete(company);
     }
 }
