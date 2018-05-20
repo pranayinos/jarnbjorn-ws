@@ -59,7 +59,8 @@ public class OrderController {
 
     @RequestMapping(method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
-    public ResponseEntity<?> create(@RequestBody Order order) {
+    public ResponseEntity<?> create(@AuthenticationPrincipal User activeUser, @RequestBody Order order) {
+        order.setUser(activeUser);
         orderService.create(order);
         HttpHeaders headers = new HttpHeaders();
         ControllerLinkBuilder linkBuilder = linkTo(methodOn(OrderController.class).get(order.getId()));

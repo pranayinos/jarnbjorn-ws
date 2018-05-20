@@ -1,5 +1,7 @@
 package com.dmux.jarnbjorn.model;
 
+import com.dmux.jarnbjorn.model.security.User;
+
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
@@ -12,6 +14,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -61,7 +64,13 @@ public class Order implements Serializable {
 	@Fetch(value = FetchMode.SUBSELECT)
 	private List<Delivery> deliveries;
 
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name="user_id")
+	private User user;
+
 	public Order() {
 		this.orderCreatedTime = System.currentTimeMillis();
 	}
+
+
 }

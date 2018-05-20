@@ -1,0 +1,45 @@
+SET FOREIGN_KEY_CHECKS=0;
+
+INSERT INTO `authority` (`ID`, `NAME`)
+VALUES
+	(11, 'ADMIN'),
+	(1, 'ORDER_CREATE'),
+	(4, 'ORDER_DELETE'),
+	(2, 'ORDER_READ'),
+	(3, 'ORDER_UPDATE'),
+	(5, 'DEPARTMENT_CREATE'),
+	(8, 'DEPARTMENT_DELETE'),
+	(6, 'DEPARTMENT_READ'),
+	(7, 'DEPARTMENT_UPDATE'),
+	(10, 'MERCHANT'),
+	(9, 'ROLE_ORDER_READER');
+
+
+INSERT INTO `users_authorities` (`USER_ID`, `AUTHORITY_ID`)
+VALUES
+	(1, 1),
+	(1, 2),
+	(2, 2),
+	(1, 3),
+	(3, 3),
+	(1, 4),
+	(1, 5),
+	(1, 6),
+	(2, 6),
+	(1, 7),
+	(3, 7),
+	(1, 8),
+	(1, 9),
+	(4, 9);
+
+
+INSERT INTO `OAUTH_CLIENT_DETAILS` (`CLIENT_ID`, `RESOURCE_IDS`, `CLIENT_SECRET`, `SCOPE`, `AUTHORIZED_GRANT_TYPES`, `WEB_SERVER_REDIRECT_URI`, `AUTHORITIES`, `ACCESS_TOKEN_VALIDITY`, `REFRESH_TOKEN_VALIDITY`, `ADDITIONAL_INFORMATION`, `AUTOAPPROVE`)
+VALUES
+	('jarnbjorn', 'resource-server-rest-api', '$2a$04$gar9cfwymtx5UguxbCp4iukqOGSsjAx5rMclA4lhfqEptf4WKoEfm', 'read,write', 'password,authorization_code,refresh_token,implicit', NULL, 'USER', 10800, 2592000, NULL, NULL);
+
+INSERT INTO `user_` (`ID`, `PASSWORD`, `USER_NAME`, `EMAIL`, `PHONE`, `ACCOUNT_EXPIRED`, `ACCOUNT_LOCKED`, `CREDENTIALS_EXPIRED`, `ENABLED`)
+VALUES
+	(1, '$2a$08$qvrzQZ7jJ7oy2p/msL4M0.l83Cd0jNsX6AJUitbgRXGzge4j035ha', 'admin', 'ak990@india.com', 9790876504, 0, 0, 0, 1);
+
+
+SET FOREIGN_KEY_CHECKS=1;

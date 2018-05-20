@@ -13,30 +13,30 @@ import java.util.List;
 public interface OrderService {
 
     @Transactional(readOnly = true)
-    @PreAuthorize("hasAuthority('COMPANY_READ') and hasAuthority('DEPARTMENT_READ')")
+    @PreAuthorize("hasAuthority('MERCHANT') or hasAuthority('ADMIN')")
     Order get(Long id);
 
     @Transactional(readOnly = true)
-    @PreAuthorize("hasAuthority('COMPANY_READ') and hasAuthority('DEPARTMENT_READ')")
+    @PreAuthorize("hasAuthority('MERCHANT') or hasAuthority('ADMIN')")
     Order get(String name);
 
     @Transactional(readOnly = true)
-    @PreAuthorize("hasAuthority('COMPANY_READ')")
+    @PreAuthorize("hasAuthority('MERCHANT') or hasAuthority('ADMIN')")
     List<Order> getAll();
 
     @Transactional
-    @PreAuthorize("hasAuthority('COMPANY_CREATE')")
-    void create(Order company);
+    @PreAuthorize("hasAuthority('MERCHANT') or hasAuthority('ADMIN')")
+    void create(Order order);
 
     @Transactional
-    @PreAuthorize("hasAuthority('COMPANY_UPDATE')")
-    Order update(Order company);
+    @PreAuthorize("hasAuthority('MERCHANT') or hasAuthority('ADMIN')")
+    Order update(Order order);
 
     @Transactional
-    @PreAuthorize("hasAuthority('COMPANY_DELETE')")
+    @PreAuthorize("hasAuthority('MERCHANT') or hasAuthority('ADMIN')")
     void delete(Long id);
 
     @Transactional
-    @PreAuthorize("hasAuthority('COMPANY_DELETE')")
-    void delete(Order company);
+    @PreAuthorize("hasAuthority('MERCHANT') or hasAuthority('ADMIN')")
+    void delete(Order order);
 }

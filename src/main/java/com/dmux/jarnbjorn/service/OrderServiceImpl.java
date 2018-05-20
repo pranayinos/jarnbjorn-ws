@@ -18,50 +18,50 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     @Transactional(readOnly = true)
-    @PreAuthorize("hasAuthority('COMPANY_READ') and hasAuthority('DEPARTMENT_READ')")
+    @PreAuthorize("hasAuthority('MERCHANT') or hasAuthority('ADMIN')")
     public Order get(Long id) {
         return orderRepository.findOne(id);
     }
 
     @Override
     @Transactional(readOnly = true)
-    @PreAuthorize("hasAuthority('COMPANY_READ') and hasAuthority('DEPARTMENT_READ')")
+    @PreAuthorize("hasAuthority('MERCHANT') or hasAuthority('ADMIN')")
     public Order get(String status) {
         return orderRepository.findByStatus(status);
     }
 
     @Override
     @Transactional(readOnly = true)
-    @PreAuthorize("hasAuthority('COMPANY_READ')")
+    @PreAuthorize("hasAuthority('MERCHANT') or hasAuthority('ADMIN')")
     public List<Order> getAll() {
         return orderRepository.findAll();
     }
 
     @Override
     @Transactional
-    @PreAuthorize("hasAuthority('COMPANY_CREATE')")
-    public void create(Order company) {
-        orderRepository.save(company);
+    @PreAuthorize("hasAuthority('MERCHANT') or hasAuthority('ADMIN')")
+    public void create(Order order) {
+        orderRepository.save(order);
     }
 
     @Override
     @Transactional
-    @PreAuthorize("hasAuthority('COMPANY_UPDATE')")
-    public Order update(Order company) {
-        return orderRepository.save(company);
+    @PreAuthorize("hasAuthority('MERCHANT') or hasAuthority('ADMIN')")
+    public Order update(Order order) {
+        return orderRepository.save(order);
     }
 
     @Override
     @Transactional
-    @PreAuthorize("hasAuthority('COMPANY_DELETE')")
+    @PreAuthorize("hasAuthority('MERCHANT') or hasAuthority('ADMIN')")
     public void delete(Long id) {
         orderRepository.delete(id);
     }
 
     @Override
     @Transactional
-    @PreAuthorize("hasAuthority('COMPANY_DELETE')")
-    public void delete(Order company) {
-        orderRepository.delete(company);
+    @PreAuthorize("hasAuthority('MERCHANT') or hasAuthority('ADMIN')")
+    public void delete(Order order) {
+        orderRepository.delete(order);
     }
 }

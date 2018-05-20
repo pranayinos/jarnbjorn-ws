@@ -6,7 +6,7 @@ CREATE TABLE `authority` (
   `NAME` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`ID`),
   UNIQUE KEY `AUTHORITY_NAME` (`NAME`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1;
 
 -- Create syntax for TABLE 'deliveries'
 CREATE TABLE `deliveries` (
@@ -22,7 +22,7 @@ CREATE TABLE `deliveries` (
   PRIMARY KEY (`id`),
   KEY `order_id` (`order_id`),
   CONSTRAINT `deliveries_ibfk_1` FOREIGN KEY (`order_id`) REFERENCES `orders` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
 -- Create syntax for TABLE 'OAUTH_ACCESS_TOKEN'
 CREATE TABLE `OAUTH_ACCESS_TOKEN` (
@@ -34,7 +34,7 @@ CREATE TABLE `OAUTH_ACCESS_TOKEN` (
   `AUTHENTICATION` varbinary(4095) DEFAULT NULL,
   `REFRESH_TOKEN` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`AUTHENTICATION_ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- Create syntax for TABLE 'OAUTH_CLIENT_DETAILS'
 CREATE TABLE `OAUTH_CLIENT_DETAILS` (
@@ -50,7 +50,7 @@ CREATE TABLE `OAUTH_CLIENT_DETAILS` (
   `ADDITIONAL_INFORMATION` varchar(4096) DEFAULT NULL,
   `AUTOAPPROVE` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`CLIENT_ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- Create syntax for TABLE 'OAUTH_CLIENT_TOKEN'
 CREATE TABLE `OAUTH_CLIENT_TOKEN` (
@@ -60,20 +60,20 @@ CREATE TABLE `OAUTH_CLIENT_TOKEN` (
   `USER_NAME` varchar(255) DEFAULT NULL,
   `CLIENT_ID` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`AUTHENTICATION_ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- Create syntax for TABLE 'OAUTH_CODE'
 CREATE TABLE `OAUTH_CODE` (
   `CODE` varchar(255) DEFAULT NULL,
   `AUTHENTICATION` varbinary(512) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- Create syntax for TABLE 'OAUTH_REFRESH_TOKEN'
 CREATE TABLE `OAUTH_REFRESH_TOKEN` (
   `TOKEN_ID` varchar(255) DEFAULT NULL,
   `TOKEN` varbinary(512) DEFAULT NULL,
   `AUTHENTICATION` varbinary(4095) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- Create syntax for TABLE 'orders'
 CREATE TABLE `orders` (
@@ -82,8 +82,11 @@ CREATE TABLE `orders` (
   `special_instructions` text,
   `status` varchar(31) NOT NULL DEFAULT '',
   `order_created_time` bigint(18) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `user_id` bigint(20) unsigned DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `user_id` (`user_id`),
+  CONSTRAINT `orders_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user_` (`ID`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 -- Create syntax for TABLE 'pickups'
 CREATE TABLE `pickups` (
@@ -99,7 +102,7 @@ CREATE TABLE `pickups` (
   PRIMARY KEY (`id`),
   KEY `order_id` (`order_id`),
   CONSTRAINT `pickups_ibfk_1` FOREIGN KEY (`order_id`) REFERENCES `orders` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
 -- Create syntax for TABLE 'saved_address'
 CREATE TABLE `saved_address` (
@@ -114,20 +117,22 @@ CREATE TABLE `saved_address` (
   PRIMARY KEY (`id`),
   KEY `user_savedAddress` (`user_id`),
   CONSTRAINT `user_savedAddress` FOREIGN KEY (`user_id`) REFERENCES `user_` (`ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- Create syntax for TABLE 'user_'
 CREATE TABLE `user_` (
   `ID` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-  `PASSWORD` varchar(255) DEFAULT NULL,
-  `USER_NAME` varchar(255) DEFAULT NULL,
+  `PASSWORD` varchar(255) NOT NULL DEFAULT '',
+  `USER_NAME` varchar(255) NOT NULL DEFAULT '',
+  `EMAIL` varchar(255) DEFAULT NULL,
+  `PHONE` bigint(10) DEFAULT NULL,
   `ACCOUNT_EXPIRED` tinyint(1) DEFAULT NULL,
   `ACCOUNT_LOCKED` tinyint(1) DEFAULT NULL,
   `CREDENTIALS_EXPIRED` tinyint(1) DEFAULT NULL,
   `ENABLED` tinyint(1) DEFAULT NULL,
   PRIMARY KEY (`ID`),
   UNIQUE KEY `USER_USER_NAME` (`USER_NAME`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 
 -- Create syntax for TABLE 'users_authorities'
 CREATE TABLE `users_authorities` (
@@ -137,12 +142,12 @@ CREATE TABLE `users_authorities` (
   KEY `USERS_AUTHORITIES_AUTHORITY` (`AUTHORITY_ID`),
   CONSTRAINT `USERS_AUTHORITIES_AUTHORITY` FOREIGN KEY (`AUTHORITY_ID`) REFERENCES `AUTHORITY` (`ID`),
   CONSTRAINT `USERS_AUTHORITIES_USER_` FOREIGN KEY (`USER_ID`) REFERENCES `USER_` (`ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- Create syntax for TABLE 'vendor'
 CREATE TABLE `vendor` (
   `id` bigint(18) unsigned NOT NULL AUTO_INCREMENT,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 SET FOREIGN_KEY_CHECKS=1;
