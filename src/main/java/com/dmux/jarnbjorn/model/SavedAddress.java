@@ -10,11 +10,13 @@ import javax.persistence.Table;
 
 import java.io.Serializable;
 
+import lombok.Data;
 
 /**
  * The persistent class for the saved_address database table.
  * 
  */
+@Data
 @Entity
 @Table(name="saved_address")
 @NamedQuery(name="SavedAddress.findAll", query="SELECT s FROM SavedAddress s")
@@ -24,88 +26,21 @@ public class SavedAddress implements Serializable {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(unique=true, nullable=false)
-	private int id;
+	private Long id;
 
-	private int address;
+	private String address;
 
-	private int landmark;
+	private String landmark;
 
-	private int latitude;
+	private double latitude;
 
-	private int longitude;
+	private double longitude;
 
-	private int name;
+	private String name;
 
-	private int phone;
+	private Long phone;
 
 	@Column(name="user_id", nullable=false)
 	private Long userId;
-
-	public SavedAddress() {
-	}
-
-	public int getId() {
-		return this.id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
-
-	public int getAddress() {
-		return this.address;
-	}
-
-	public void setAddress(int address) {
-		this.address = address;
-	}
-
-	public int getLandmark() {
-		return this.landmark;
-	}
-
-	public void setLandmark(int landmark) {
-		this.landmark = landmark;
-	}
-
-	public int getLatitude() {
-		return this.latitude;
-	}
-
-	public void setLatitude(int latitude) {
-		this.latitude = latitude;
-	}
-
-	public int getLongitude() {
-		return this.longitude;
-	}
-
-	public void setLongitude(int longitude) {
-		this.longitude = longitude;
-	}
-
-	public int getName() {
-		return this.name;
-	}
-
-	public void setName(int name) {
-		this.name = name;
-	}
-
-	public int getPhone() {
-		return this.phone;
-	}
-
-	public void setPhone(int phone) {
-		this.phone = phone;
-	}
-
-	public Long getUserId() {
-		return this.userId;
-	}
-
-	public void setUserId(Long userId) {
-		this.userId = userId;
-	}
 
 }

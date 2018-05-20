@@ -46,15 +46,15 @@ public class OrderController {
     @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
     public @ResponseBody
-    Order get(@PathVariable int id) {
+    Order get(@PathVariable Long id) {
         return orderService.get(id);
     }
 
     @RequestMapping(value = "/filter", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
     public @ResponseBody
-    Order get(@RequestParam String name) {
-        return orderService.get(name);
+    Order get(@RequestParam String status) {
+        return orderService.get(status);
     }
 
     @RequestMapping(method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -75,7 +75,7 @@ public class OrderController {
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
-    public void delete(@PathVariable int id) {
+    public void delete(@PathVariable Long id) {
         orderService.delete(id);
     }
 }

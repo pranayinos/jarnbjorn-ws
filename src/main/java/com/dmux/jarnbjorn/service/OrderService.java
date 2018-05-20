@@ -14,7 +14,7 @@ public interface OrderService {
 
     @Transactional(readOnly = true)
     @PreAuthorize("hasAuthority('COMPANY_READ') and hasAuthority('DEPARTMENT_READ')")
-    Order get(int id);
+    Order get(Long id);
 
     @Transactional(readOnly = true)
     @PreAuthorize("hasAuthority('COMPANY_READ') and hasAuthority('DEPARTMENT_READ')")
@@ -34,7 +34,7 @@ public interface OrderService {
 
     @Transactional
     @PreAuthorize("hasAuthority('COMPANY_DELETE')")
-    void delete(int id);
+    void delete(Long id);
 
     @Transactional
     @PreAuthorize("hasAuthority('COMPANY_DELETE')")

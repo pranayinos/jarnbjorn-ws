@@ -10,11 +10,13 @@ import javax.persistence.Table;
 
 import java.io.Serializable;
 
+import lombok.Data;
 
 /**
  * The persistent class for the vendor database table.
  * 
  */
+@Data
 @Entity
 @Table(name="vendor")
 @NamedQuery(name="Vendor.findAll", query="SELECT v FROM Vendor v")
@@ -24,17 +26,6 @@ public class Vendor implements Serializable {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(unique=true, nullable=false)
-	private int id;
-
-	public Vendor() {
-	}
-
-	public int getId() {
-		return this.id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
+	private Long id;
 
 }
